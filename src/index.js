@@ -21,23 +21,20 @@ class Board extends React.Component {
   }
 
   render() {
+    const rows = [...Array(3)].map((_, y) => {
+      const cols = [...Array(3)].map((_, x) => {
+        return this.renderSquare(y * 3 + x);
+      });
+      return (
+        <div className="board-row">
+          {cols}
+        </div>
+      );
+    });
+    
     return (
       <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        {rows}
       </div>
     );
   }
@@ -49,6 +46,8 @@ class Game extends React.Component {
     this.state = {
       history: [{
         squares: Array(9).fill(null),
+        col: null,
+        row: null,
       }],
       stepNumber: 0,
       xIsNext: true,
@@ -66,6 +65,8 @@ class Game extends React.Component {
     this.setState({
       history: history.concat([{
         squares: squares,
+        col: i % 3,
+        row: Math.trunc(i / 3),
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
@@ -86,7 +87,7 @@ class Game extends React.Component {
 
     const moves = history.map((step, move) => {
       const desc = move ?
-        'Go to move #' + move :
+        `Go to move #${move} (${step.col + 1}, ${step.row + 1})` :
         'Go to game start';
       return (
         <li key={move}>
