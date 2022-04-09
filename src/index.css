@@ -3,33 +3,73 @@ body {
   margin: 20px;
 }
 
-ol, ul {
-  padding-left: 30px;
+.game {
+  display: grid;
+  gap: 24px;
+  padding: 0 20%;
+
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 2fr minmax(15rem, 1fr);
+  grid-template-areas:
+    "header header"
+    "main side"
+    "footer footer";
 }
 
-.board-row:after {
-  clear: both;
-  content: "";
-  display: table;
+@media (max-width: 768px) {
+  .game {
+    grid-template-rows: auto 1fr auto auto;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "main"
+      "side"
+      "footer";
+    padding: 0;
+  }
+  
+  .board {
+    padding: 3rem;
+  }
 }
 
-.status {
-  margin-bottom: 10px;
+.game-title {
+  grid-area: header;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.game-board {
+  grid-area: main;
+  position: relative;
+}
+
+.game-board:before {
+  content:"";
+  display: block;
+  padding-top: 100%;
+}
+
+.board {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 8px;
 }
 
 .square {
   background: #fff;
   border: 1px solid #999;
-  float: left;
-  font-size: 24px;
+  font-size: 3rem;
   font-weight: bold;
-  line-height: 34px;
-  height: 34px;
-  margin-right: -1px;
-  margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 34px;
 }
 
 .square:focus {
@@ -37,22 +77,73 @@ ol, ul {
 }
 
 .square.highlight {
-  background: orange;
+  background: lightgreen;
 }
 
 .kbd-navigation .square:focus {
   background: #ddd;
 }
 
-.game {
-  display: flex;
-  flex-direction: row;
-}
-
 .game-info {
-  margin-left: 20px;
+  grid-area: side;
+  display: flex;
+  flex-direction: column;
 }
 
-.current {
-  border: 2px solid orange;
+.status {
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #999;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.history-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.history-title .btn-sort {
+  width: initial;
+  padding: 0.5rem;
+  font-size: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.game-info ol {
+  padding: 0;
+  margin: 0;
+}
+
+.game-info li {
+  padding: 5px 0;
+  list-style-type: none;
+}
+
+.game-info button {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  background: #fff;
+  border: 1px solid #999;
+}
+
+.game-info button.current {
+  background: #999;
+  color: white;
+}
+
+button:hover {
+  background: #999;
+  color: white;
+}
+
+button:active {
+  background: lightpink;
+}
+
+.game-footer {
+  grid-area: footer;
 }

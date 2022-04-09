@@ -28,15 +28,11 @@ class Board extends React.Component {
       const cols = [...Array(3)].map((_, x) => {
         return this.renderSquare(y * 3 + x);
       });
-      return (
-        <div className="board-row">
-          {cols}
-        </div>
-      );
+      return cols;
     });
     
     return (
-      <div>
+      <div className='board'>
         {rows}
       </div>
     );
@@ -46,8 +42,8 @@ class Board extends React.Component {
 function MoveList(props) {
   const list = props.history.map((step, move) => {
     const desc = move ?
-      `Go to move #${move} (${step.col + 1}, ${step.row + 1})` :
-      'Go to game start';
+      `#${move} (${step.col + 1}, ${step.row + 1})` :
+      'Game start';
     return (
       <li key={move}>
         <button 
@@ -119,6 +115,7 @@ class Game extends React.Component {
 
     return (
       <div className="game">
+        <div className='game-title'>🎮 Tic-tac-toe</div>
         <div className="game-board">
           <Board 
             squares={current.squares}
@@ -127,9 +124,10 @@ class Game extends React.Component {
           />
         </div>
         <div className="game-info">
-          <div>{status}</div>
-          <div>
-            <button onClick={() => this.setState({sortDesc: !this.state.sortDesc})}>↑↓</button>
+          <div className='status'>{status}</div>
+          <div className='history-title'>
+            <div>History</div>
+            <button className='btn-sort' onClick={() => this.setState({sortDesc: !this.state.sortDesc})}>↑↓</button>
           </div>
           <ol>
             <MoveList 
@@ -140,6 +138,7 @@ class Game extends React.Component {
             />
           </ol>
         </div>
+        <div className='game-footer'>&copy; 2022 Tic-tac-toe.</div>
       </div>
     );
   }
