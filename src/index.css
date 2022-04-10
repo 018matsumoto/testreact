@@ -60,16 +60,18 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  gap: 8px;
+  gap: 1.5rem;
 }
 
 .square {
   background: #fff;
-  border: 1px solid #999;
+  border: none;
   font-size: 3rem;
   font-weight: bold;
   padding: 0;
   text-align: center;
+  box-shadow: 0 0px 15px rgb(30 30 30 / 20%), 0 0 1px rgb(120 120 120 / 40%);
+  border-radius: 0.25rem;
 }
 
 .square:focus {
